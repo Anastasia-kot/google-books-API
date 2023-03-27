@@ -1,0 +1,12 @@
+.headerWrapper {
+    width: 100%;
+    background-color:grey;
+    background-image: url(https://i.pinimg.com/originals/b7/cb/c1/b7cbc1dba3797abbfa39911dc7386e92.jpg);
+    color: white;
+}
+
+.headerTitle {
+    font-size: 72px;
+    padding: 40px 0;
+    text-align: center;
+}

@@ -1,0 +1,94 @@
+.bookCard{
+    height: 300px;
+    display: inline-flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 10px;
+    gap:5px;
+    justify-content: space-between;
+
+
+    width: 250px;
+    border-radius: 3px;
+    text-decoration: none;
+
+
+    background-color: rgba(227, 227, 227, 0.832);
+        /* display: inline-block;
+        margin: 10px;
+        width: 20%;
+        min-width: 250px;
+        max-width: 400px;
+        border-radius: 3px;
+      */
+ }
+
+
+.bookCoverWrapper{
+    height: 200px;
+    width: fit-content; 
+    background-color: rgba(224, 224, 224, 0.832);
+    align-self: center;
+box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+
+    }
+     
+.bookCover {
+    width: auto;
+    height: 200px;filter: grayscale(25%);
+}
+.bookCoverSpan{
+    display: block;
+    width: 150px; min-height: 200px;height: 200px;
+    background-color: rgb(211, 209, 209);border-radius: 5px;
+}
+
+
+
+
+
+.bookCategory {
+    text-decoration: underline;
+    color:rgb(129, 129, 129);
+    text-align: left;
+    margin: 0 10px;
+    /* margin-bottom: 10px; */
+    display: block;
+}
+
+.bookTitle{
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    text-align: left;
+    margin: 0 10px;
+    /* margin-bottom: 10px; */
+    display: block;
+
+
+}
+
+
+ .bookTitle a{ 
+          text-decoration: none;
+        color:rgb(129, 129, 129); overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            line-height: 1.3em;
+            height: 1.3em;}
+
+.bookAuthor{
+    color: rgb(129, 129, 129);
+    text-align: left;
+    margin: 0 10px;
+    /* margin-bottom: 15px; */
+    display: block;
+
+    overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        line-height: 1.3em;
+        height:1.3em;
+}
+              

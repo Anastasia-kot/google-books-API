@@ -1,0 +1,40 @@
+.loadMoreButton {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    margin: 40px auto 50px;
+    max-width: 200px;
+
+}
+
+.loadMoreButton {
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #a4a4a4;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 9px #999;
+ }
+
+.loadMoreButton:hover {
+    background-color: #808080
+}
+
+.loadMoreButton:active {
+    background-color: #808080;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.loadMoreButton::after {
+    content: '';
+
+}
