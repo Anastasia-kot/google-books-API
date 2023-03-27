@@ -2,6 +2,7 @@
   "name": "googlebooks-mobx",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://anastasia-kot.github.io/google-books-API",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -11,6 +12,7 @@
     "@types/react": "^18.0.29",
     "@types/react-dom": "^18.0.11",
     "axios": "^1.3.4",
+    "gh-pages": "^5.0.0",
     "mobx": "^6.9.0",
     "mobx-react": "^8.0.0",
     "react": "^18.2.0",
@@ -22,6 +24,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build ",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
