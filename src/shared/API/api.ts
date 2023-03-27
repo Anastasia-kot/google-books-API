@@ -29,6 +29,8 @@ export async function getBooksByAPI(
     currentPageParameter = "&startIndex=" + (currentPage + 1) * 30;
   }
 
+  try {
+
   const { data } = await axios.get<ApiDataType>(
     `https://www.googleapis.com/books/v1/volumes?q=${keyWord}${categorySortingParameter}&orderBy=${sorting}&maxResults=30${currentPageParameter}${APIkey}`,
     {
@@ -38,4 +40,15 @@ export async function getBooksByAPI(
     }
   );
    return data;
+  } 
+   catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log('error message: ', error.message);
+      return error.message;
+    } else {
+      console.log('unexpected error: ', error);
+      return 'An unexpected error occurred';
+    }
+  }
+
 }

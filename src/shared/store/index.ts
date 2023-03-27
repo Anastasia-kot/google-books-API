@@ -1,4 +1,3 @@
-
 import { makeAutoObservable } from "mobx";
 import { Book, GoogleArgsType, SearchParameters } from "../types";
 import { BookWithMetaData, getBooksByAPI } from "../API/api";
@@ -12,7 +11,7 @@ class BooksStore {
     category: "",
     sorting: "newest",
   } as SearchParameters;
-  currentPage = 0 as number ;
+  currentPage = 0 as number;
 
   constructor() {
     makeAutoObservable(this);
@@ -26,12 +25,13 @@ class BooksStore {
     this.isFetching = true;
 
     const { keyWord, category, sorting, currentPage } = GoogleArgs;
-    const data = await getBooksByAPI(keyWord, category, sorting, currentPage);
 
-     
-    this.books = data?.items?.map((i: BookWithMetaData) => i.volumeInfo);
-    this.booksTotalCount = data.totalItems;
-    this.currentPage = 0;
+    const data = await getBooksByAPI(keyWord, category, sorting, currentPage);
+    if (typeof data !== "string") {
+      this.books = data?.items?.map((i: BookWithMetaData) => i.volumeInfo);
+      this.booksTotalCount = data.totalItems;
+      this.currentPage = 0;
+    }
 
     this.isFetching = false;
   }
@@ -41,9 +41,10 @@ class BooksStore {
 
     const { keyWord, category, sorting, currentPage } = GoogleArgs;
     const data = await getBooksByAPI(keyWord, category, sorting, currentPage);
-
-    this.books.push(...data.items.map((i: BookWithMetaData) => i.volumeInfo));
-    this.currentPage = this.currentPage + 1;
+    if (typeof data !== "string") {
+      this.books.push(...data.items.map((i: BookWithMetaData) => i.volumeInfo));
+      this.currentPage = this.currentPage + 1;
+    }
 
     this.isFetching = false;
   }
