@@ -1,8 +1,3 @@
-export interface GoogleArgsType extends SearchParameters {
-  currentPage: number;
-}
-
-
 export interface Book {
   title: string;
   subtitle: string;

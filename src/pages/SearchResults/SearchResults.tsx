@@ -9,12 +9,12 @@ import { LoadMore } from "../../features/LoadMore/LoadMore";
 const SearchResults: FC = observer(() => {
 
     useEffect(() => {
-    store.getBooks({
-      keyWord: "ReactJS",
-      category: "",
-      sorting: "newest",
-      currentPage: 0,
-    });
+      store.setSearchParameters({
+        keyWord: "ReactJS",
+        category: "",
+        sorting: "newest",
+      });
+    store.getBooks( );
   }, []);
   return (
     <>

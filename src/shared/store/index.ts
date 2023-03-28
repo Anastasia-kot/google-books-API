@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { Book, GoogleArgsType, SearchParameters } from "../types";
+import { Book, SearchParameters } from "../types";
 import { BookWithMetaData, getBooksByAPI } from "../API/api";
 import axios from "axios";
 
@@ -22,14 +22,12 @@ class BooksStore {
     this.searchParameters = payload;
   }
 
-  async getBooks(GoogleArgs: GoogleArgsType) {
-
-
+  async getBooks() {
     try {
       this.isFetching = true;
 
-      const { keyWord, category, sorting, currentPage } = GoogleArgs;
-      const { data } = await getBooksByAPI(keyWord,category,sorting,currentPage);
+      const { keyWord, category, sorting } = this.searchParameters;
+      const { data } = await getBooksByAPI(keyWord, category, sorting, 0);
 
       this.books = data?.items?.map((i: BookWithMetaData) => i.volumeInfo);
       this.booksTotalCount = data.totalItems;
@@ -43,33 +41,31 @@ class BooksStore {
     } finally {
       this.isFetching = false;
     }
-
   }
 
-  async loadMoreBooks(GoogleArgs: GoogleArgsType) {
-   try {
-     this.isFetching = true;
+  async loadMoreBooks() {
+    try {
+      this.isFetching = true;
 
-     const { keyWord, category, sorting, currentPage } = GoogleArgs;
-     const {data} = await getBooksByAPI(keyWord, category, sorting, currentPage);
-    
-       this.books.push(...data.items.map((i: BookWithMetaData) => i.volumeInfo));
-       this.currentPage = this.currentPage + 1;
+      const { keyWord, category, sorting } = this.searchParameters;
+      const { data } = await getBooksByAPI(
+        keyWord,
+        category,
+        sorting,
+        this.currentPage + 1
+      );
+
+      this.books.push(...data.items.map((i: BookWithMetaData) => i.volumeInfo));
+      this.currentPage = this.currentPage + 1;
     } catch (error) {
-     if (axios.isAxiosError(error)) {
-       console.log("error message: ", error.message);
-     } else {
-       console.log("unexpected error: ", error);
-     }
-   } finally {
-     this.isFetching = false;
-   }
-
-
-
-  
-
- ;
+      if (axios.isAxiosError(error)) {
+        console.log("error message: ", error.message);
+      } else {
+        console.log("unexpected error: ", error);
+      }
+    } finally {
+      this.isFetching = false;
+    }
   }
 }
 

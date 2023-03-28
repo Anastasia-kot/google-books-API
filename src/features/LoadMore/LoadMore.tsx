@@ -5,19 +5,13 @@ import { observer } from "mobx-react";
 export const LoadMore = observer (() => {
 
   const onClick = () => {
-    store.loadMoreBooks({
-      ...store.searchParameters,
-      currentPage: store.currentPage + 1,
-    });
+
+    store.loadMoreBooks();
   };
    return (
      <button
        className={styles.loadMoreButton}
-       disabled={
-         (store.currentPage + 1) * 30 >=
-           (store.booksTotalCount ? store.booksTotalCount : 0) ||
-         store.isFetching
-       }
+       disabled={store.isFetching || store.books.length === store.booksTotalCount}
        onClick={onClick}
      >
        Load more

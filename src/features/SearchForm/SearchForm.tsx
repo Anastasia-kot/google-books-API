@@ -9,8 +9,9 @@ import store from './../../shared/store/index'
 export const SearchForm: FC = observer(() => {
   const { register, handleSubmit } = useForm<SearchParameters>();
    const onSubmit: SubmitHandler<SearchParameters> = (data) => {
-     store.getBooks({ ...data, currentPage: 0 });
      store.setSearchParameters(data);
+     store.getBooks();
+
   };
 
   return  (
