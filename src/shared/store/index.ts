@@ -1,18 +1,18 @@
-import { makeAutoObservable } from "mobx";
+import { action, makeAutoObservable, observable } from "mobx";
 import { Book, SearchParameters } from "../types";
 import { BookWithMetaData, getBooksByAPI } from "../API/api";
 import axios from "axios";
 
 class BooksStore {
-  books = [] as Book[];
-  booksTotalCount = null as number | null;
-  isFetching = false as boolean;
-  searchParameters = {
-    keyWord: "ReactJS",
+  @observable books = [] as Book[];
+  @observable booksTotalCount = null as number | null;
+  @observable isFetching = false as boolean;
+  @observable searchParameters = {
+    keyWord: "",
     category: "",
-    sorting: "newest",
+    sorting: "",
   } as SearchParameters;
-  currentPage = 0 as number;
+  @observable currentPage = 0 as number;
 
   constructor() {
     makeAutoObservable(this);
@@ -22,7 +22,7 @@ class BooksStore {
     this.searchParameters = payload;
   }
 
-  async getBooks() {
+  @action async getBooks() {
     try {
       this.isFetching = true;
 
@@ -43,7 +43,7 @@ class BooksStore {
     }
   }
 
-  async loadMoreBooks() {
+  @action async loadMoreBooks() {
     try {
       this.isFetching = true;
 
