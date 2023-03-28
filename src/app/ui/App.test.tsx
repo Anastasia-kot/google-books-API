@@ -9,8 +9,7 @@ const renderWithRouter = (component: JSX.Element) =>
 
   test("start App with loader", () => {
     renderWithRouter(<App />);
-    screen.debug();
-
+ 
     expect(screen.getByAltText(/loader/i)).toBeInTheDocument();
   });
 

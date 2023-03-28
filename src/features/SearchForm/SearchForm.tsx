@@ -6,7 +6,7 @@ import { observer } from "mobx-react";
 import store from './../../shared/store/index'
 
  
-export const SearchForm: FC = observer(() => {
+ const SearchForm: FC = observer(() => {
   const { register, handleSubmit } = useForm<SearchParameters>();
    const onSubmit: SubmitHandler<SearchParameters> = (data) => {
      store.setSearchParameters(data);
@@ -62,3 +62,6 @@ export const SearchForm: FC = observer(() => {
     </form>
   )
 })
+
+
+export default SearchForm;
