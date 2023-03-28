@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { Book, GoogleArgsType, SearchParameters } from "../types";
 import { BookWithMetaData, getBooksByAPI } from "../API/api";
+import axios from "axios";
 
 class BooksStore {
   books = [] as Book[];
@@ -22,31 +23,53 @@ class BooksStore {
   }
 
   async getBooks(GoogleArgs: GoogleArgsType) {
-    this.isFetching = true;
 
-    const { keyWord, category, sorting, currentPage } = GoogleArgs;
 
-    const data = await getBooksByAPI(keyWord, category, sorting, currentPage);
-    if (typeof data !== "string") {
+    try {
+      this.isFetching = true;
+
+      const { keyWord, category, sorting, currentPage } = GoogleArgs;
+      const { data } = await getBooksByAPI(keyWord,category,sorting,currentPage);
+
       this.books = data?.items?.map((i: BookWithMetaData) => i.volumeInfo);
       this.booksTotalCount = data.totalItems;
       this.currentPage = 0;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log("error message: ", error.message);
+      } else {
+        console.log("unexpected error: ", error);
+      }
+    } finally {
+      this.isFetching = false;
     }
 
-    this.isFetching = false;
   }
 
   async loadMoreBooks(GoogleArgs: GoogleArgsType) {
-    this.isFetching = true;
+   try {
+     this.isFetching = true;
 
-    const { keyWord, category, sorting, currentPage } = GoogleArgs;
-    const data = await getBooksByAPI(keyWord, category, sorting, currentPage);
-    if (typeof data !== "string") {
-      this.books.push(...data.items.map((i: BookWithMetaData) => i.volumeInfo));
-      this.currentPage = this.currentPage + 1;
-    }
+     const { keyWord, category, sorting, currentPage } = GoogleArgs;
+     const {data} = await getBooksByAPI(keyWord, category, sorting, currentPage);
+    
+       this.books.push(...data.items.map((i: BookWithMetaData) => i.volumeInfo));
+       this.currentPage = this.currentPage + 1;
+    } catch (error) {
+     if (axios.isAxiosError(error)) {
+       console.log("error message: ", error.message);
+     } else {
+       console.log("unexpected error: ", error);
+     }
+   } finally {
+     this.isFetching = false;
+   }
 
-    this.isFetching = false;
+
+
+  
+
+ ;
   }
 }
 
